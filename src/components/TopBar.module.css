@@ -1,3 +1,38 @@
-.text-area{
-    
+.top-area {
+    /* background-color: yellow; */
+    padding: 0px 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Work Sans ', sans-serif;
+    margin: 3rem 0;
+}
+
+.text-area {
+    /* background-color: green; */
+}
+
+.text-area p {
+    color: #475467;
+}
+
+.button-area {
+    background-color: purple;
+}
+
+.task-btn {
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #3F5BF6;
+    background: #3F5BF6;
+    transition: 0.15s all ease;
+    color: white;
+}
+
+.task-btn:hover {
+    transform: scale(0.98);
+    cursor: pointer;
 }

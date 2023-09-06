@@ -8,7 +8,7 @@ const TopBar: React.FC = () => {
                 <h1>Good morning!</h1>
                 <p>You got some task to do. </p>
             </div>
-            <button>
+            <button className={topBarStyles['task-btn']}>
                 <FiPlus />
                 Create New Task
             </button>
