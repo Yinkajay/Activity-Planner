@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -11,7 +11,16 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 import Tasks from './components/Tasks'
+import { TaskContext } from './store/TasksContext'
 
+interface Task {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+  startDate: string; // Date properties
+  endDate: string;
+}
 
 function App() {
   // const [startDate, setStartDate] = useState(new Date());
@@ -24,15 +33,36 @@ function App() {
   const [currentDate, setCurrentDate] = useState<Day>(null)
   const [tasks, setTasks] = useState([])
 
+  const { addTask, allTasks, setAllTasks } = useContext(TaskContext)
+
   const fetchData = () => {
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(json => {
-        setTasks(json.slice(0, 50));
-        console.log(json)
-          ;
+        // setTasks(json.slice(0, 50));
+        // console.log(json)
+        const modifiedTasks: Task[] = json.slice(0, 50).map((task: any) => {
+          // Define the additional fields you want to add
+          const startDate = '2023-08-30'; // Example start date
+          const endDate = '2023-08-31'; // Example end date
+
+          // Create a new object that conforms to the Task interface
+          return {
+            // key: task.id,
+            userId: task.userId,
+            id: task.id,
+            title: task.title,
+            completed: task.completed,
+            startDate, // Add the start date
+            endDate,   // Add the end date
+          };
+        });
+        console.log(modifiedTasks)
+        // setTasks(modifiedTasks);
+        setAllTasks(modifiedTasks)
+
       });
-    console.log(tasks)
+    // console.log(tasks)
   };
 
   useEffect(() => {
@@ -47,7 +77,8 @@ function App() {
         <Navbar />
         <hr />
         <TopBar />
-        <Tasks tasks={tasks} />
+        {/* <Tasks tasks={tasks} /> */}
+        <Tasks tasks={allTasks} />
         {/* <Calendar shouldHighlightWeekends value={currentDate} onChange={setCurrentDate} /> */}
       </div>
     </>

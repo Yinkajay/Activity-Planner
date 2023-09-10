@@ -1,0 +1,48 @@
+.time-input-container {
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Adjust the gap between input and select as needed */
+    position: relative;
+    width: 140px;
+    margin: 0 4px;
+  }
+
+  .time-input-container svg{
+    position: absolute;
+    left: 6px;
+  }
+  
+  /* Style for the input element */
+  input[type="text"] {
+    /* Add your input styling here */
+    padding: 5px 10px 5px 32px;
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+    cursor: pointer;
+    color: #667085;
+  }
+  
+  /* Style for the select element */
+  select {
+    /* Add your select styling here */
+    border-radius: 8px;
+    /* height: 100%; */
+    padding: 3px;
+    border: 1px solid #D0D5DD;
+    cursor: pointer;
+    color: #667085;
+    font-size: 10px;
+  }
+
+  input:focus, select:focus{
+    outline: 2px solid #D0D5DD;
+  }
+  
+  select option{
+    /* background-color: yellow; */
+  }
+

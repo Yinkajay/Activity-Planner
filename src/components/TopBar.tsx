@@ -6,7 +6,7 @@ const TopBar: React.FC = () => {
         <div className={topBarStyles['top-area']}>
             <div className={topBarStyles['text-area']}>
                 <h1>Good morning!</h1>
-                <p>You got some task to do. </p>
+                <p>You got some tasks to do. </p>
             </div>
             <button className={topBarStyles['task-btn']}>
                 <FiPlus />

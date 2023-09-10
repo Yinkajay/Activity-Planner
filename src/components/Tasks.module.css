@@ -1,6 +1,78 @@
-.task{
+.tasks-area {
+    padding: 0 6rem;
+    display: flex;
+}
+
+.tasks-ctn {
+    padding: 1rem 0;
+    padding-right: 20px;
+    width: 65%;
+    border-right: 2px solid;
+    /* background-color: lightblue; */
+}
+
+.task {
     background-color: #F9FAFB;
     border-bottom: 2px solid #EAECF0;
     margin: 10px 0;
     height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-info {
+    /* background-color: purple; */
+    display: flex;
+}
+
+.task-info input {
+    margin-right: 10px;
+}
+
+.task-date {
+    /* background-color: yellow; */
+}
+
+.pagination-area {
+    /* background-color: chocolate; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-number-btn {
+    background-color: transparent;
+    padding: 5px;
+    margin: 0 1px;
+    border: none;
+    color: #475467;
+    font-size: 14px;
+}
+
+.page-active-btn {
+    font-size: 15px;
+    padding: 5px 9px;
+    background-color: #F9FAFB;
+    /* background-color: red; */
+    border-radius: 20px;
+}
+
+.page-number-btn:hover {
+    transform: scale(1.1);
+}
+
+.page-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.action-area {
+    /* background-color: green; */
+    margin: 0 auto;
 }
