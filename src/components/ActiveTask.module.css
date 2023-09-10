@@ -1,0 +1,75 @@
+.active-task-card {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+    margin: 0 20px;
+    width: 300px;
+    position: relative;
+}
+
+.top-area {
+    /* background-color: blue; */
+    padding: 7px 0;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-area svg {
+    cursor: pointer;
+}
+
+.info-area {
+    margin-bottom: 20px;
+}
+
+.info-area h3{
+    margin-bottom: 20px;
+}
+
+.info-area p{
+    color: #272727;
+    font-weight: 500;
+}
+
+.info-area div {
+    display: flex;
+    align-items: center;
+}
+
+.info-area svg{
+    margin-right: 8px;
+}
+
+.button-area {
+    /* background-color: red;    */
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-area button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    width: 43%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.15s all ease;
+}
+
+.button-area button:hover {
+    transform: scale(0.98);
+}
+
+.cancel-btn {
+    background-color: transparent;
+    border: 2px solid #D0D5DD !important;
+    font-weight: bold;
+    color: #344054;
+}
+
+.save-btn {
+    background: #3F5BF6;
+    color: #fff;
+}

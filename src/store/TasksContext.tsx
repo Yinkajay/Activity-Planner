@@ -47,12 +47,20 @@ export const TaskContext = createContext<{
     setAllTasks: React.Dispatch<React.SetStateAction<Task[]>>;
     taskToAddDate: object,
     changeTaskDate: (date: TaskDate) => void
+    activeTask: object,
+    highlightTask: (task: Task) => void;
+    actionMode: string,
+    changeMode: (mode: string) => void
 }>({
     allTasks: [],
     addTask: () => { },
     setAllTasks: () => { },
     taskToAddDate: {},
-    changeTaskDate: () => { }
+    changeTaskDate: () => { },
+    activeTask: {},
+    highlightTask: () => { },
+    actionMode: '',
+    changeMode: () => { }
 });
 
 
@@ -62,7 +70,9 @@ export const TaskContextProvider = ({ children }) => {
 
     const { year, month, day } = extractDateInfo(new Date())
     const [taskToAddDate, setTaskToAddDate] = useState({ year, month, day })
+    const [activeTask, setActiveTask] = useState({})
 
+    const [actionMode, setActionMode] = useState<string>('Calendar')
 
     // const addTask = (task: Task) => {
     //     setAllTasks((prevTasks) => [...prevTasks, task])
@@ -76,6 +86,18 @@ export const TaskContextProvider = ({ children }) => {
         setTaskToAddDate(date)
     }
 
+    const highlightTask: (task: Task) => void = (task: Task) => {
+        if (activeTask.id === task.id) {
+            setActiveTask({})
+            return
+        }
+        setActiveTask(task)
+    }
+
+    const changeMode = (mode) => {
+        setActionMode(mode)
+    }
+
 
     return (
         <TaskContext.Provider value={{
@@ -83,7 +105,11 @@ export const TaskContextProvider = ({ children }) => {
             addTask,
             setAllTasks,
             taskToAddDate,
-            changeTaskDate
+            changeTaskDate,
+            activeTask,
+            highlightTask,
+            actionMode,
+            changeMode
         }}>
             {children}
         </TaskContext.Provider>

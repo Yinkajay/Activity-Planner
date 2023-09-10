@@ -14,11 +14,31 @@
 .task {
     background-color: #F9FAFB;
     border-bottom: 2px solid #EAECF0;
+    padding: 5px;
     margin: 10px 0;
     height: 72px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.task input[type='checkbox']:active, .task input[type='checkbox']{
+    border: none;
+    outline: none;
+}
+
+.task:hover {
+    background-color: #EAEDFE;
+    cursor: pointer;
+}
+
+.active-task {
+    background-color: #EAEDFE;
+}
+
+.canceled-text{
+    text-decoration: line-through;
+    color: #D0D5DD;
 }
 
 .task-info {
@@ -70,6 +90,14 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.calendar-card {
+    margin: 0 auto;
+}
+
+.calendar-hide {
+    display: none;
 }
 
 .action-area {

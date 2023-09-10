@@ -43,7 +43,7 @@ function App() {
       .then(json => {
         // setTasks(json.slice(0, 50));
         // console.log(json)
-        const modifiedTasks: Task[] = json.slice(0, 50).map((task: any) => {
+        const modifiedTasks: Task[] = json.slice(0, 5).map((task: any) => {
           // Define the additional fields you want to add
 
           // const startTime = '2023-08-30'; // Example start date
@@ -60,7 +60,7 @@ function App() {
             userId: task.userId,
             id: task.id,
             title: task.title,
-            completed: task.completed,
+            completed: false,
             startTime, // Add the start date
             endTime,   // Add the end date
             taskDate: new Date()

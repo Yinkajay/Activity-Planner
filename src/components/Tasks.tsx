@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import taskStyles from './Tasks.module.css'
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
 import TaskAdd from './CreateTask';
-import EditTask from './EditTask';
 import { TaskContext } from '../store/TasksContext';
-import { Calendar, DayValue } from 'react-modern-calendar-datepicker';
+import { Calendar, DayValue, utils } from 'react-modern-calendar-datepicker';
 import { extractDateInfo } from '../utils/getDateInfo';
+import ActiveTask from './ActiveTask';
 
 interface Task {
     id: number;
@@ -18,10 +18,10 @@ interface Task {
 
 
 const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
-
     const { year, month, day } = extractDateInfo(new Date())
-    console.log(year, month, day)
+    // console.log(year, month, day)
 
+    const [mode, setMode] = useState('calendar')
     const [calendarDate, setCalendarDate] = useState({
         year,
         month,
@@ -30,29 +30,54 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     const tasksPerPage = 7
     const [page, setPage] = useState<number>(1)
 
+
+    const { allTasks, setAllTasks, taskToAddDate, activeTask, highlightTask } = useContext(TaskContext)
+
+
     useEffect(() => {
         console.log(calendarDate)
-    }, [calendarDate])
-
-    
-    const { allTasks, taskToAddDate } = useContext(TaskContext)
+        console.log(activeTask)
+    }, [calendarDate, activeTask,])
 
     // console.log(allTasks)
+    const changeDateHandler = (newDate) => {
+        setCalendarDate(newDate)
+        setMode('addTask')
+    }
+
+    const handleTaskClick = (task: Task) => {
+        highlightTask(task)
+    }
+
+    const toggleCompletion = (e, task: Task) => {
+        e.stopPropagation()
+
+        const taskIndex = allTasks.findIndex((otherTask) => task.id === otherTask.id);
+
+        const updatedTask = { ...allTasks[taskIndex], completed: !allTasks[taskIndex].completed };
+
+        // Create a new array that preserves the order of tasks.
+        const updatedTaskList = [...allTasks];
+        updatedTaskList[taskIndex] = updatedTask;
+
+        setAllTasks(updatedTaskList)
+
+    }
 
     return (
         <div className={taskStyles['tasks-area']}>
             <div className={taskStyles['tasks-ctn']}>
                 <h2>
                     My Tasks
-                    <h1>{calendarDate.year}-{calendarDate.month}-{calendarDate.day}</h1>
                 </h2>
+                <h3>{calendarDate.year}-{calendarDate.month}-{calendarDate.day}</h3>
                 {tasks?.slice((page - 1) * tasksPerPage, page * tasksPerPage).map(task => (
-                    <div className={taskStyles['task']} key={task.id}>
+                    <div className={`${taskStyles['task']} ${activeTask.id == task.id ? taskStyles['active-task'] : ''}`} key={task.id} onClick={() => handleTaskClick(task)}>
                         <div className={taskStyles['task-info']}>
-                            <input type='checkbox' />
+                            <input type='checkbox' onClick={(e) => toggleCompletion(e, task)} />
                             <div className="">
-                                <p style={{ fontWeight: 'bold' }}>{task.title}</p>
-                                <p>{task.startTime} - {task.endTime} </p>
+                                <p style={{ fontWeight: 'bold' }} className={`${task.completed ? taskStyles['canceled-text'] : ''}`}>{task.title}</p>
+                                <p className={`${task.completed ? taskStyles['canceled-text'] : ''}`}>{task.startTime} - {task.endTime} </p>
                             </div>
                         </div>
                         <div className={taskStyles['task-date']}>
@@ -80,14 +105,16 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 </div>
             </div>
             <div className={taskStyles['action-area']}>
-                {/* <TaskAdd /> */}
-                <Calendar
+                {/* <Calendar
+                    calendarClassName={`${taskStyles['calendar-card']} ${mode !== 'calendar' ? taskStyles['calendar-hide'] : ''}`}
                     value={calendarDate}
-                    onChange={setCalendarDate}
+                    onChange={changeDateHandler}
+                    minimumDate={utils().getToday()}
                     // shouldHighlightWeekends
                     colorPrimary='#3F5BF6'
-                />
-                {/* <DatePicker /> */}
+                /> */}
+                {mode === 'addTask' && <TaskAdd />}
+                <ActiveTask />
             </div>
         </div>
     )
