@@ -50,7 +50,8 @@ export const TaskContext = createContext<{
     activeTask: Task,
     highlightTask: (task: Task) => void;
     actionMode: string,
-    changeMode: (mode: string) => void
+    changeMode: (mode: string) => void,
+    editTask: (task: Task) => void
 }>({
     allTasks: [],
     addTask: () => { },
@@ -60,7 +61,8 @@ export const TaskContext = createContext<{
     activeTask: {} as Task,
     highlightTask: () => { },
     actionMode: '',
-    changeMode: () => { }
+    changeMode: () => { },
+    editTask: () => { }
 });
 
 
@@ -100,18 +102,14 @@ export const TaskContextProvider = ({ children }) => {
     }
 
     const editTask = (task: Task) => {
+        console.log(task)
         const indexToUpdate = allTasks.findIndex((item) => item.id === task.id);
-        const updatedTask = { ...task }
-        
-        // const updatedItem = {
-        //     ...task[indexToUpdate],
-            
-        // };
-        const updatedTasks = [
-            ...allTasks.slice(0, indexToUpdate),
-            updatedItem,
-            ...allTasks.slice(indexToUpdate + 1),
-        ];
+        const updatedTasks = [...allTasks]
+
+        updatedTasks[indexToUpdate] = { ...task }
+
+        console.log(updatedTasks)
+        setAllTasks(updatedTasks)
     }
 
 
@@ -126,7 +124,8 @@ export const TaskContextProvider = ({ children }) => {
             activeTask,
             highlightTask,
             actionMode,
-            changeMode
+            changeMode,
+            editTask,
         }}>
             {children}
         </TaskContext.Provider>

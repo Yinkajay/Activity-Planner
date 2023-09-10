@@ -19,7 +19,7 @@ interface Task {
 // console.log(uuid())
 
 const EditTask = () => {
-    const { allTasks, addTask, activeTask, changeMode } = useContext(TaskContext)
+    const { allTasks, addTask, activeTask, changeMode, editTask } = useContext(TaskContext)
 
     const [taskToEdit, setTaskToEdit] = useState<Task>(activeTask)
 
@@ -29,43 +29,16 @@ const EditTask = () => {
     const [showReminder, setShowReminder] = useState(true)
 
 
-    // useEffect(()=>{
-    //     console.log(allTasks)
-    // }, [allTasks])
+    useEffect(() => {
+        console.log(activeTask)
+    }, [activeTask])
 
 
-    const addTaskHandler = (task: Task) => {
-        console.log(taskToEdit)
-
-        if (taskToEdit.title == '') {
-            setTitleError(true)
-            return
-        }
-        const newTask = { ...taskToEdit, id: uuid() };
-        console.log(newTask)
-
-
-        addTask(newTask);
-
-        // Optionally, reset the taskToEdit state for the next task
-        // setTaskToEdit({
-        //     id: 0, // Reset to an empty string
-        //     title: '',
-        //     completed: false,
-        //     startTime: '12:00 am', // Reset to default values
-        //     endTime: '1:00 am',
-        //     taskDate: new Date()
-        // });
-    }
-
-    // const handleTimeChange = (newTime: string) => {
-    //     setSelectedTime(newTime);
-    // };
-
-    const handleTitleChange = ((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTitleChange = ((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTitleError(false)
         const newTitle = e.target.value;
         setTaskToEdit({ ...taskToEdit, title: newTitle });
+        console.log(taskToEdit)
     })
 
     const handleStartTimeChange = (newTime: string) => {
@@ -87,6 +60,10 @@ const EditTask = () => {
         setShowReminder(false)
     }
 
+    const editTaskHandler = (taskToEdit: Task) => {
+        console.log(taskToEdit)
+        editTask(taskToEdit)
+    }
     return (
         <div className={createTaskStyles['create-task-card']}>
             <div className={createTaskStyles['top-area']}>
@@ -94,7 +71,7 @@ const EditTask = () => {
                 <AiOutlineClose color='#667085' size={22} />
             </div>
             {/* placeholder={activeTask?.title} */}
-            <textarea rows={10} cols={40} value={taskToEdit.title} onChange={handleTitleChange} />
+            <textarea rows={10} cols={40} value={taskToEdit?.title} onChange={handleTitleChange} />
             {titleError && <p className={createTaskStyles['error-text']}>This field cannot be empty</p>}
             <div className={createTaskStyles['date-area']}>
                 <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`}>
@@ -107,8 +84,8 @@ const EditTask = () => {
                     {/* <div className={`${createTaskStyles['date-box']}`}>
                         <AiOutlineClockCircle color='#344054' /> 11AM
                     </div> */}
-                    <TimeInput onTimeChange={handleStartTimeChange} />
-                    <TimeInput onTimeChange={handleEndTimeChange} />
+                    <TimeInput onTimeChange={handleStartTimeChange} initialTime={activeTask?.startTime} />
+                    <TimeInput onTimeChange={handleEndTimeChange} initialTime={activeTask?.endTime} />
                 </div>
             </div>
 
@@ -123,7 +100,7 @@ const EditTask = () => {
             </div>}
             <div className={createTaskStyles['button-area']}>
                 <button className={createTaskStyles['cancel-btn']} onClick={cancelEditHandler}>Cancel</button>
-                <button className={createTaskStyles['save-btn']} onClick={() => addTaskHandler('')}>Save</button>
+                <button className={createTaskStyles['save-btn']} onClick={()=>editTaskHandler(taskToEdit)}>Save</button>
             </div>
         </div >
     )

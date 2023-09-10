@@ -57,7 +57,6 @@ function App() {
           // Create a new object that conforms to the Task interface
           return {
             // key: task.id,
-            userId: task.userId,
             id: task.id,
             title: task.title,
             completed: false,

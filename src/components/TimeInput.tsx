@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import timeInputStyles from './TimeInput.module.css'; // Import a CSS file for styling
 import { AiOutlineClockCircle } from "react-icons/ai";
 
-const TimeInput = ({ onTimeChange }) => {
+const TimeInput = ({ onTimeChange, initialTime= { } }) => {
     const [time, setTime] = useState({
         hour: '',
         period: 'am'
     })
-    // const [time, setTime] = useState('');
-    // const [period, setPeriod] = useState('am');
+
+    useEffect(() => {
+        // Parse the initialTime prop when it changes and update the component state
+        if (initialTime) {
+            const [hour, period] = initialTime.split(' ');
+            setTime({ hour, period: period.toLowerCase() });
+        }
+    }, [initialTime]);
 
     const handleHourChange = (e) => {
         const inputValue = e.target.value;
