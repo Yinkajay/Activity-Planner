@@ -6,6 +6,7 @@ import { TaskContext } from '../store/TasksContext';
 import { Calendar, DayValue, utils } from 'react-modern-calendar-datepicker';
 import { extractDateInfo } from '../utils/getDateInfo';
 import ActiveTask from './ActiveTask';
+import EditTask from './EditTask';
 
 interface Task {
     id: number;
@@ -31,7 +32,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     const [page, setPage] = useState<number>(1)
 
 
-    const { allTasks, setAllTasks, taskToAddDate, activeTask, highlightTask } = useContext(TaskContext)
+    const { allTasks, changeMode, setAllTasks, taskToAddDate, activeTask, highlightTask, actionMode } = useContext(TaskContext)
 
 
     useEffect(() => {
@@ -42,11 +43,12 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     // console.log(allTasks)
     const changeDateHandler = (newDate) => {
         setCalendarDate(newDate)
-        setMode('addTask')
+        changeMode('addTask')
     }
 
     const handleTaskClick = (task: Task) => {
         highlightTask(task)
+        changeMode('activeTask')
     }
 
     const toggleCompletion = (e, task: Task) => {
@@ -71,6 +73,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                     My Tasks
                 </h2>
                 <h3>{calendarDate.year}-{calendarDate.month}-{calendarDate.day}</h3>
+                {tasks.length === 0 && <h1 className={taskStyles['empty-tasks-heading']}>Nothing to show here!</h1>}
                 {tasks?.slice((page - 1) * tasksPerPage, page * tasksPerPage).map(task => (
                     <div className={`${taskStyles['task']} ${activeTask.id == task.id ? taskStyles['active-task'] : ''}`} key={task.id} onClick={() => handleTaskClick(task)}>
                         <div className={taskStyles['task-info']}>
@@ -105,16 +108,17 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 </div>
             </div>
             <div className={taskStyles['action-area']}>
-                {/* <Calendar
-                    calendarClassName={`${taskStyles['calendar-card']} ${mode !== 'calendar' ? taskStyles['calendar-hide'] : ''}`}
+                <Calendar
+                    calendarClassName={`${taskStyles['calendar-card']} ${actionMode !== 'calendar' ? taskStyles['calendar-hide'] : ''}`}
                     value={calendarDate}
                     onChange={changeDateHandler}
                     minimumDate={utils().getToday()}
                     // shouldHighlightWeekends
                     colorPrimary='#3F5BF6'
-                /> */}
-                {mode === 'addTask' && <TaskAdd />}
-                <ActiveTask />
+                />
+                {actionMode === 'addTask' && <TaskAdd />}
+                {actionMode === 'activeTask' && <ActiveTask />}
+                {actionMode === 'editTask' && <EditTask />}
             </div>
         </div>
     )

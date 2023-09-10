@@ -35,13 +35,13 @@ const CreateTask = () => {
 
     const [showReminder, setShowReminder] = useState(true)
 
-    const { allTasks, addTask } = useContext(TaskContext)
+    const { allTasks, addTask, changeMode } = useContext(TaskContext)
 
     // useEffect(()=>{
     //     console.log(allTasks)
     // }, [allTasks])
 
-    const addTaskHandler = (task: Task) => {
+    const addTaskHandler = () => {
         console.log(taskToAdd)
 
         if (taskToAdd.title == '') {
@@ -88,14 +88,20 @@ const CreateTask = () => {
         setShowReminder(false)
     }
 
+    const cancelAddHandler = () => {
+        changeMode('calendar')
+    }
+
 
     return (
         <div className={createTaskStyles['create-task-card']}>
             <div className={createTaskStyles['top-area']}>
                 <h2>Add Task</h2>
-                <AiOutlineClose color='#667085' size={22} />
+                <div className="" onClick={cancelAddHandler}>
+                    <AiOutlineClose color='#667085' size={22} />
+                </div>
             </div>
-            <textarea rows={10} cols={40} placeholder='Create Wireframe' value={taskToAdd.title} onChange={handleTitleChange} />
+            <textarea rows={10} cols={40} value={taskToAdd.title} onChange={handleTitleChange} />
             {titleError && <p className={createTaskStyles['error-text']}>This field cannot be empty</p>}
             <div className={createTaskStyles['date-area']}>
                 <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`}>
@@ -123,8 +129,8 @@ const CreateTask = () => {
                 </div>
             </div>}
             <div className={createTaskStyles['button-area']}>
-                <button className={createTaskStyles['cancel-btn']}>Cancel</button>
-                <button className={createTaskStyles['save-btn']} onClick={() => addTaskHandler('')}>Save</button>
+                <button className={createTaskStyles['cancel-btn']} onClick={cancelAddHandler}>Cancel</button>
+                <button className={createTaskStyles['save-btn']} onClick={addTaskHandler}>Save</button>
             </div>
         </div >
     )

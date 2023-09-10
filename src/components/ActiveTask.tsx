@@ -30,38 +30,13 @@ const ActiveTask = () => {
         taskDate: new Date()
     })
 
-    // Errors
-    const [titleError, setTitleError] = useState(false)
-    const [timeError, setTimeError] = useState(false)
 
-    const [showReminder, setShowReminder] = useState(true)
 
-    const { allTasks, addTask, activeTask } = useContext(TaskContext)
+    const { allTasks, setAllTasks, highlightTask, addTask, activeTask, changeMode } = useContext(TaskContext)
 
-    // useEffect(()=>{
-    //     console.log(allTasks)
-    // }, [allTasks])
 
-    const addTaskHandler = (task: Task) => {
-        console.log(taskToAdd)
-
-        if (taskToAdd.title == '') {
-            setTitleError(true)
-            return
-        }
-        const newTask = { ...taskToAdd, id: uuid() };
-        console.log(newTask)
-        addTask(newTask);
-
-        // Optionally, reset the taskToAdd state for the next task
-        setTaskToAdd({
-            id: 0, // Reset to an empty string
-            title: '',
-            completed: false,
-            startTime: '12:00 am', // Reset to default values
-            endTime: '1:00 am',
-            taskDate: new Date()
-        });
+    const editTaskHandler = (task: Task) => {
+        changeMode('editTask')
     }
 
     // const handleTimeChange = (newTime: string) => {
@@ -76,30 +51,48 @@ const ActiveTask = () => {
         formattedDate = formatDate(activeTask?.taskDate)
     }
 
+
+    const deleteTask = (taskId: number) => {
+        console.log('deleting')
+        const updatedTasks = allTasks.filter((task) => task.id !== taskId)
+        setAllTasks(updatedTasks)
+        highlightTask({})
+    }
+
+    const mainContent = (formattedDate !== ''
+        ? (
+            <>
+                <div className={activeTaskStyles['info-area']}>
+                    <h3>
+                        {activeTask?.title}
+                    </h3>
+                    <div className={activeTaskStyles['task-date']}>
+                        <FiCalendar color='#3F5BF6' />
+                        <p>{formattedDate}</p>
+                    </div>
+                    <div className={activeTaskStyles['task-time']}>
+                        <AiOutlineClockCircle color='#3F5BF6' />
+                        <p>{activeTask?.startTime} - {activeTask?.endTime}</p>
+                    </div>
+                </div>
+
+                <div className={activeTaskStyles['button-area']}>
+                    <button className={activeTaskStyles['cancel-btn']} onClick={() => deleteTask(activeTask?.id)}>Delete</button>
+                    <button className={activeTaskStyles['save-btn']} onClick={editTaskHandler}>Edit</button>
+                </div>
+            </>
+        )
+        : (
+            <h2 className={activeTaskStyles['prompt-text']}>Select a task to view</h2>
+        )
+    )
+
     return (
         <div className={activeTaskStyles['active-task-card']}>
             <div className={activeTaskStyles['top-area']}>
                 <AiOutlineClose color='#667085' size={22} />
             </div>
-
-            <div className={activeTaskStyles['info-area']}>
-                <h3>
-                    {activeTask?.title}
-                </h3>
-                <div className={activeTaskStyles['task-date']}>
-                    <FiCalendar color='#3F5BF6' />
-                    <p>{formattedDate}</p>
-                </div>
-                <div className={activeTaskStyles['task-time']}>
-                    <AiOutlineClockCircle color='#3F5BF6' />
-                    <p>{activeTask?.startTime} - {activeTask?.endTime}</p>
-                </div>
-            </div>
-
-            <div className={activeTaskStyles['button-area']}>
-                <button className={activeTaskStyles['cancel-btn']}>Delete</button>
-                <button  className={activeTaskStyles['save-btn']} onClick={() => addTaskHandler('')}>Edit</button>
-            </div>
+            {mainContent}
         </div >
     )
 }

@@ -73,3 +73,10 @@
     background: #3F5BF6;
     color: #fff;
 }
+
+.prompt-text{
+    text-align: center;
+    color: #3F5BF6;
+    font-family: sans-serif;
+    margin: 20px 0;
+}

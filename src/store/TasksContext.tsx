@@ -47,7 +47,7 @@ export const TaskContext = createContext<{
     setAllTasks: React.Dispatch<React.SetStateAction<Task[]>>;
     taskToAddDate: object,
     changeTaskDate: (date: TaskDate) => void
-    activeTask: object,
+    activeTask: Task,
     highlightTask: (task: Task) => void;
     actionMode: string,
     changeMode: (mode: string) => void
@@ -57,7 +57,7 @@ export const TaskContext = createContext<{
     setAllTasks: () => { },
     taskToAddDate: {},
     changeTaskDate: () => { },
-    activeTask: {},
+    activeTask: {} as Task,
     highlightTask: () => { },
     actionMode: '',
     changeMode: () => { }
@@ -70,9 +70,10 @@ export const TaskContextProvider = ({ children }) => {
 
     const { year, month, day } = extractDateInfo(new Date())
     const [taskToAddDate, setTaskToAddDate] = useState({ year, month, day })
-    const [activeTask, setActiveTask] = useState({})
+    // const [activeTask, setActiveTask] = useState({})
+    const [activeTask, setActiveTask] = useState<Task>({} as Task)
 
-    const [actionMode, setActionMode] = useState<string>('Calendar')
+    const [actionMode, setActionMode] = useState<string>('calendar')
 
     // const addTask = (task: Task) => {
     //     setAllTasks((prevTasks) => [...prevTasks, task])
@@ -97,6 +98,22 @@ export const TaskContextProvider = ({ children }) => {
     const changeMode = (mode) => {
         setActionMode(mode)
     }
+
+    const editTask = (task: Task) => {
+        const indexToUpdate = allTasks.findIndex((item) => item.id === task.id);
+        const updatedTask = { ...task }
+        
+        // const updatedItem = {
+        //     ...task[indexToUpdate],
+            
+        // };
+        const updatedTasks = [
+            ...allTasks.slice(0, indexToUpdate),
+            updatedItem,
+            ...allTasks.slice(indexToUpdate + 1),
+        ];
+    }
+
 
 
     return (
