@@ -12,14 +12,16 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
 import Tasks from './components/Tasks'
 import { TaskContext } from './store/TasksContext'
+import { generateRandomTime } from './utils/getRandomTimeGenerator'
 
 interface Task {
   userId: number;
   id: number;
   title: string;
   completed: boolean;
-  startDate: string; // Date properties
-  endDate: string;
+  startTime: string; // Date properties
+  endTime: string;
+  taskDdate: Date
 }
 
 function App() {
@@ -30,7 +32,7 @@ function App() {
     to: null
   });
   const [days, setDays] = useState<Day[]>([]);
-  const [currentDate, setCurrentDate] = useState<Day>(null)
+  // const [currentDate, setCurrentDate] = useState<Day>(null)
   const [tasks, setTasks] = useState([])
 
   const { addTask, allTasks, setAllTasks } = useContext(TaskContext)
@@ -43,8 +45,14 @@ function App() {
         // console.log(json)
         const modifiedTasks: Task[] = json.slice(0, 50).map((task: any) => {
           // Define the additional fields you want to add
-          const startDate = '2023-08-30'; // Example start date
-          const endDate = '2023-08-31'; // Example end date
+
+          // const startTime = '2023-08-30'; // Example start date
+          // const endTime = '2023-08-31'; // Example end date
+
+          // const startTime = '10:20 am'; // Example start time
+          // const endTime = '11:40 am'; // Example end time
+
+          const { startTime, endTime } = generateRandomTime();
 
           // Create a new object that conforms to the Task interface
           return {
@@ -53,8 +61,9 @@ function App() {
             id: task.id,
             title: task.title,
             completed: task.completed,
-            startDate, // Add the start date
-            endDate,   // Add the end date
+            startTime, // Add the start date
+            endTime,   // Add the end date
+            taskDate: new Date()
           };
         });
         console.log(modifiedTasks)
@@ -66,9 +75,9 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(currentDate);
+    // console.log(currentDate);
     fetchData();
-  }, [currentDate]);
+  }, []);
 
 
   return (
