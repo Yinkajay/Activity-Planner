@@ -61,7 +61,6 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
         const updatedTask = { ...allTasks[taskIndex], completed: !allTasks[taskIndex].completed };
 
-        // Create a new array that preserves the order of tasks.
         const updatedTaskList = [...allTasks];
         updatedTaskList[taskIndex] = updatedTask;
 
@@ -101,7 +100,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 ))}
                 <div className={taskStyles['pagination-area']}>
                     <button className={`${taskStyles['page-btn']} ${taskStyles['button-prev']} `} onClick={() => setPage((p) => p - 1)} disabled={page <= 1}>
-                        <FiArrowLeft />
+                        <FiArrowLeft color='#475467' />
                         Previous
                     </button>
                     <div className="">
@@ -114,7 +113,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                     </div>
                     <button className={`${taskStyles['page-btn']} ${taskStyles['button-next']} `} onClick={() => setPage((p) => p + 1)} disabled={page >= (tasks.length / tasksPerPage)}>
                         Next
-                        <FiArrowRight />
+                        <FiArrowRight color='#475467' />
                     </button>
                 </div>
             </div>
@@ -137,11 +136,11 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
             </div>
             <div className="">
                 {/* {actionMode !== 'calendar' && ( */}
-                    <Modal show={actionMode !== 'calendar'} onCancel={() => setShowModal(false)}>
-                        {actionMode === 'addTask' && <TaskAdd />}
-                        {actionMode === 'activeTask' && <ActiveTask />}
-                        {actionMode === 'editTask' && <EditTask />}
-                    </Modal>
+                <Modal show={actionMode !== 'calendar'} onCancel={() => setShowModal(false)}>
+                    {actionMode === 'addTask' && <TaskAdd />}
+                    {actionMode === 'activeTask' && <ActiveTask />}
+                    {actionMode === 'editTask' && <EditTask />}
+                </Modal>
                 {/* )} */}
             </div>
         </div>

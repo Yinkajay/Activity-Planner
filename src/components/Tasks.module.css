@@ -101,6 +101,12 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    color: #475467;
+}
+
+.page-btn svg{
+margin: 0 5px;
 }
 
 .calendar-card {

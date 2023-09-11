@@ -12,15 +12,6 @@ interface Task {
     taskDate: Date
 }
 
-interface TaskDate {
-
-}
-
-// type TaskContextData = {
-//     // Modify the type as per your task data structure
-//     tasks: Task[],
-//     addTask: () => {},
-// };
 
 const initialTasks: Task[] = [{
     id: 999,
@@ -31,15 +22,6 @@ const initialTasks: Task[] = [{
     taskDate: new Date()
 }]
 
-// export const TaskContext = createContext<TaskContextData | undefined>({
-//     tasks: [],
-// })
-
-// export const TaskContext = createContext({
-//     allTasks: [],
-//     // setAllTaks: (task:Task) => (void )
-//     setAllTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-// })
 
 export const TaskContext = createContext<{
     allTasks: Task[];
@@ -77,9 +59,6 @@ export const TaskContextProvider = ({ children }) => {
 
     const [actionMode, setActionMode] = useState<string>('calendar')
 
-    // const addTask = (task: Task) => {
-    //     setAllTasks((prevTasks) => [...prevTasks, task])
-    // }
     
     const addTask: (task: Task) => void = (task: Task) => {
         setAllTasks((prevTasks) => [task, ...prevTasks])

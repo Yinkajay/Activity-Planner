@@ -10,7 +10,6 @@ export const getDaysInOrder = (numDays: number): { year: number; month: number; 
   
       daysArray.push({ year, month, day, dayOfWeek });
   
-      // Move to the next day
       currentDate.setDate(currentDate.getDate() + 1);
     }
   

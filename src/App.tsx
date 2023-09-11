@@ -32,7 +32,6 @@ function App() {
     to: null
   });
   const [days, setDays] = useState<Day[]>([]);
-  // const [currentDate, setCurrentDate] = useState<Day>(null)
   const [tasks, setTasks] = useState([])
 
   const { addTask, allTasks, setAllTasks } = useContext(TaskContext)
@@ -41,20 +40,10 @@ function App() {
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(json => {
-        // setTasks(json.slice(0, 50));
-        // console.log(json)
-        const modifiedTasks: Task[] = json.slice(0, 5).map((task: any) => {
-          // Define the additional fields you want to add
-
-          // const startTime = '2023-08-30'; // Example start date
-          // const endTime = '2023-08-31'; // Example end date
-
-          // const startTime = '10:20 am'; // Example start time
-          // const endTime = '11:40 am'; // Example end time
+        const modifiedTasks: Task[] = json.slice(0,50).map((task: any) => {
 
           const { startTime, endTime } = generateRandomTime();
 
-          // Create a new object that conforms to the Task interface
           return {
             // key: task.id,
             id: task.id,
