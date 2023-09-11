@@ -80,6 +80,7 @@ export const TaskContextProvider = ({ children }) => {
     // const addTask = (task: Task) => {
     //     setAllTasks((prevTasks) => [...prevTasks, task])
     // }
+    
     const addTask: (task: Task) => void = (task: Task) => {
         setAllTasks((prevTasks) => [task, ...prevTasks])
         console.log('working')
@@ -98,6 +99,7 @@ export const TaskContextProvider = ({ children }) => {
     }
 
     const changeMode = (mode) => {
+        console.log(mode)
         setActionMode(mode)
     }
 

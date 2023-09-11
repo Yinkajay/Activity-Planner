@@ -3,7 +3,7 @@
     padding: 0px 6rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     font-family: 'Work Sans ', sans-serif;
     margin: 1rem 0;
 }
@@ -14,6 +14,7 @@
 
 .text-area p {
     color: #475467;
+    margin: 10px 0;
 }
 
 .button-area {
@@ -35,4 +36,28 @@
 .task-btn:hover {
     transform: scale(0.98);
     cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .top-area {
+        padding: 0px 2rem;
+    }
+
+    .task-btn {
+        padding: 8px 13px;
+    }
+}
+
+@media (max-width:500px) {
+    .top-area {
+        padding: 0px 1rem;
+    }
+
+    .top-area h1 {
+        font-size: 24px;
+    }
+
+    .task-btn {
+        display: none;
+    }
 }

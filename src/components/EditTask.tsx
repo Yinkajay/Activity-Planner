@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid'
 import { AiOutlineClockCircle, AiOutlineClose, AiFillBell } from "react-icons/ai";
 import { FiCalendar } from "react-icons/fi";
 
-import createTaskStyles from './CreateTask.module.css'
+import editTaskStyles from './EditTask.module.css'
 import { TaskContext } from '../store/TasksContext';
 import TimeInput from './TimeInput.tsx'
 
@@ -38,13 +38,13 @@ const EditTask = () => {
         setTitleError(false)
         const newTitle = e.target.value;
         setTaskToEdit({ ...taskToEdit, title: newTitle });
-        console.log(taskToEdit)
+        // console.log(taskToEdit)
     })
 
     const handleStartTimeChange = (newTime: string) => {
         setTaskToEdit(prev => ({ ...prev, startTime: newTime }))
         // setTaskStartTime(newTime);
-        console.log(newTime)
+        // console.log(newTime)
     };
 
     const handleEndTimeChange = (newTime: string) => {
@@ -61,27 +61,34 @@ const EditTask = () => {
     }
 
     const editTaskHandler = (taskToEdit: Task) => {
+        if (taskToEdit.title === '') {
+            setTitleError(true)
+            return
+        }
         console.log(taskToEdit)
         editTask(taskToEdit)
+        changeMode('calendar')
     }
     return (
-        <div className={createTaskStyles['create-task-card']}>
-            <div className={createTaskStyles['top-area']}>
+        <div className={editTaskStyles['edit-task-card']}>
+            <div className={editTaskStyles['top-area']}>
                 <h2>Edit Task</h2>
-                <AiOutlineClose color='#667085' size={22} />
+                <div className="" onClick={cancelEditHandler}>
+                    <AiOutlineClose color='#667085' size={22} />
+                </div>
             </div>
             {/* placeholder={activeTask?.title} */}
             <textarea rows={10} cols={40} value={taskToEdit?.title} onChange={handleTitleChange} />
-            {titleError && <p className={createTaskStyles['error-text']}>This field cannot be empty</p>}
-            <div className={createTaskStyles['date-area']}>
-                <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`}>
+            {titleError && <p className={editTaskStyles['error-text']}>This field cannot be empty</p>}
+            <div className={editTaskStyles['date-area']}>
+                <div className={`${editTaskStyles['date-box']} ${editTaskStyles['day-box']}`}>
                     <FiCalendar color='#344054' /> Today
                 </div>
-                <div className={createTaskStyles['time-area']}>
-                    {/* <div className={`${createTaskStyles['date-box']}`}>
+                <div className={editTaskStyles['time-area']}>
+                    {/* <div className={`${editTaskStyles['date-box']}`}>
                         <AiOutlineClockCircle color='#344054' /> 10 AM
                     </div> */}
-                    {/* <div className={`${createTaskStyles['date-box']}`}>
+                    {/* <div className={`${editTaskStyles['date-box']}`}>
                         <AiOutlineClockCircle color='#344054' /> 11AM
                     </div> */}
                     <TimeInput onTimeChange={handleStartTimeChange} initialTime={activeTask?.startTime} />
@@ -89,7 +96,7 @@ const EditTask = () => {
                 </div>
             </div>
 
-            {showReminder && <div className={createTaskStyles['reminder-area']}>
+            {showReminder && <div className={editTaskStyles['reminder-area']}>
                 <div>
                     <AiFillBell color='#667085' />
                     <p>10 Minutes before</p>
@@ -98,9 +105,9 @@ const EditTask = () => {
                     <AiOutlineClose color='#667085' size={16} />
                 </div>
             </div>}
-            <div className={createTaskStyles['button-area']}>
-                <button className={createTaskStyles['cancel-btn']} onClick={cancelEditHandler}>Cancel</button>
-                <button className={createTaskStyles['save-btn']} onClick={()=>editTaskHandler(taskToEdit)}>Save</button>
+            <div className={editTaskStyles['button-area']}>
+                <button className={editTaskStyles['cancel-btn']} onClick={cancelEditHandler}>Cancel</button>
+                <button className={editTaskStyles['save-btn']} onClick={() => editTaskHandler(taskToEdit)}>Save</button>
             </div>
         </div >
     )

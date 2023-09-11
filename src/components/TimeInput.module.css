@@ -4,7 +4,7 @@
     align-items: center;
     gap: 4px; /* Adjust the gap between input and select as needed */
     position: relative;
-    width: 140px;
+    width: 125px;
     margin: 0 4px;
   }
 
@@ -14,7 +14,7 @@
   }
   
   /* Style for the input element */
-  input[type="text"] {
+  .time-input-container [type="text"] {
     /* Add your input styling here */
     padding: 5px 10px 5px 32px;
     border: 1px solid #ccc;

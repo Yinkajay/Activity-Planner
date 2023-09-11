@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
 import taskStyles from './Tasks.module.css'
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
+import { BsFillMicFill } from "react-icons/bs";
 import TaskAdd from './CreateTask';
 import { TaskContext } from '../store/TasksContext';
 import { Calendar, DayValue, utils } from 'react-modern-calendar-datepicker';
 import { extractDateInfo } from '../utils/getDateInfo';
 import ActiveTask from './ActiveTask';
 import EditTask from './EditTask';
+import DaysList from './DaysList';
+import Modal from './UI/Modal';
 
 interface Task {
     id: number;
@@ -22,7 +25,6 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     const { year, month, day } = extractDateInfo(new Date())
     // console.log(year, month, day)
 
-    const [mode, setMode] = useState('calendar')
     const [calendarDate, setCalendarDate] = useState({
         year,
         month,
@@ -31,14 +33,15 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     const tasksPerPage = 7
     const [page, setPage] = useState<number>(1)
 
+    const [showModal, setShowModal] = useState(false)
 
     const { allTasks, changeMode, setAllTasks, taskToAddDate, activeTask, highlightTask, actionMode } = useContext(TaskContext)
 
 
-    useEffect(() => {
-        console.log(calendarDate)
-        console.log(activeTask)
-    }, [calendarDate, activeTask,])
+    // useEffect(() => {
+    //     console.log(calendarDate)
+    //     console.log(activeTask)
+    // }, [calendarDate, activeTask,])
 
     // console.log(allTasks)
     const changeDateHandler = (newDate) => {
@@ -66,9 +69,17 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
     }
 
+    const openModal = () => {
+        changeMode('addTask')
+        setShowModal(true)
+    }
+
     return (
         <div className={taskStyles['tasks-area']}>
             <div className={taskStyles['tasks-ctn']}>
+                <div className={taskStyles['current-month']}>
+                    <DaysList />
+                </div>
                 <h2>
                     My Tasks
                 </h2>
@@ -119,6 +130,19 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 {actionMode === 'addTask' && <TaskAdd />}
                 {actionMode === 'activeTask' && <ActiveTask />}
                 {actionMode === 'editTask' && <EditTask />}
+            </div>
+            <div className={taskStyles['modal-input-ctn']} onClick={openModal}>
+                <input type="text" placeholder='Input task' />
+                <BsFillMicFill color='#3F5BF6' />
+            </div>
+            <div className="">
+                {/* {actionMode !== 'calendar' && ( */}
+                    <Modal show={actionMode !== 'calendar'} onCancel={() => setShowModal(false)}>
+                        {actionMode === 'addTask' && <TaskAdd />}
+                        {actionMode === 'activeTask' && <ActiveTask />}
+                        {actionMode === 'editTask' && <EditTask />}
+                    </Modal>
+                {/* )} */}
             </div>
         </div>
     )

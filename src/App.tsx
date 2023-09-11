@@ -83,11 +83,9 @@ function App() {
     <>
       <div>
         <Navbar />
-        <hr />
+        <hr style={{ borderColor: '#EAECF0', borderStyle: 'solid' }} />
         <TopBar />
-        {/* <Tasks tasks={tasks} /> */}
         <Tasks tasks={allTasks} />
-        {/* <Calendar shouldHighlightWeekends value={currentDate} onChange={setCurrentDate} /> */}
       </div>
     </>
   )

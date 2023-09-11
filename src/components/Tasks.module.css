@@ -3,7 +3,7 @@
     display: flex;
 }
 
-.empty-tasks-heading{
+.empty-tasks-heading {
     text-align: center;
     margin: 30px 0;
     color: #475467;
@@ -12,9 +12,13 @@
 .tasks-ctn {
     padding: 1rem 0;
     padding-right: 20px;
-    width: 65%;
-    border-right: 2px solid;
+    width: 62%;
+    border-right: 2px solid #EAECF0;
     /* background-color: lightblue; */
+}
+
+.current-month {
+    color: #101828;
 }
 
 .task {
@@ -28,7 +32,8 @@
     align-items: center;
 }
 
-.task input[type='checkbox']:active, .task input[type='checkbox']{
+.task input[type='checkbox']:active,
+.task input[type='checkbox'] {
     border: none;
     outline: none;
 }
@@ -42,7 +47,7 @@
     background-color: #EAEDFE;
 }
 
-.canceled-text{
+.canceled-text {
     text-decoration: line-through;
     color: #D0D5DD;
 }
@@ -99,7 +104,9 @@
 }
 
 .calendar-card {
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .calendar-hide {
@@ -107,6 +114,81 @@
 }
 
 .action-area {
-    /* background-color: green; */
+    /* background-color: green;     */
+    width: 38%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.modal-input-ctn {
+    position: relative;
+    max-width: 300px;
     margin: 0 auto;
+    display: none;
+}
+
+.modal-input-ctn input {
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+}
+
+.modal-input-ctn svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width:1250px) {
+    .tasks-ctn {
+        width: 59%;
+    }
+
+    .action-area {
+        width: 41%;
+    }
+}
+
+@media (max-width:1170px) {
+    .tasks-area {
+        flex-direction: column;
+    }
+
+    .action-area {
+        /* background-color: red; */
+    }
+
+    .action-area>div {
+        margin: 0 auto;
+    }
+
+    .tasks-area>div {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+}
+
+@media(max-width: 800px) {
+    .tasks-area {
+        padding: 0 2rem;
+        display: flex;
+    }
+
+    .action-area {
+        display: none;
+    }
+
+    .modal-input-ctn{
+        display: block;
+    }
+}
+
+@media (max-width:400px) {
+    .tasks-area {
+        padding: 0px 1rem;
+    }
 }

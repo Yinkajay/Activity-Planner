@@ -89,7 +89,7 @@ const ActiveTask = () => {
 
     return (
         <div className={activeTaskStyles['active-task-card']}>
-            <div className={activeTaskStyles['top-area']}>
+            <div className={activeTaskStyles['top-area']} onClick={()=> changeMode('calendar')}>
                 <AiOutlineClose color='#667085' size={22} />
             </div>
             {mainContent}

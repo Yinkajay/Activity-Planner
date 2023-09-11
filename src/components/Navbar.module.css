@@ -14,6 +14,30 @@
     width: 120px;
 }
 
+.mobile-info-area {
+    display: none;
+}
+
 .info-area svg {
     /* margin: 10px; */
+}
+
+
+@media (max-width: 800px) {
+.nav{
+    padding: 10px 2rem;
+}
+    .mobile-info-area {
+        display: block;
+    }
+
+    .info-area {
+        display: none;
+    }
+}
+
+@media (max-width:400px) {
+    .nav{
+        padding: 10px 1rem;
+    }
 }
