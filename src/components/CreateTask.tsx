@@ -13,12 +13,13 @@ interface Task {
     completed: boolean;
     startTime: string; // Date properties
     endTime: string;
-    taskDate: Date;
+    taskDate: string;
 }
 
 // console.log(uuid())
 
 const CreateTask = () => {
+    const { allTasks, addTask, changeMode, formattedTaskToAddDate } = useContext(TaskContext)
 
     const [taskToAdd, setTaskToAdd] = useState<Task>({
         id: 22,
@@ -26,7 +27,7 @@ const CreateTask = () => {
         completed: false,
         startTime: '12:00 am', // Replace with a valid date string
         endTime: '1:00 am',
-        taskDate: new Date()
+        taskDate: 'Today'
     })
 
     // Errors
@@ -35,11 +36,17 @@ const CreateTask = () => {
 
     const [showReminder, setShowReminder] = useState(true)
 
-    const { allTasks, addTask, changeMode } = useContext(TaskContext)
-
-    // useEffect(()=>{
-    //     console.log(allTasks)
-    // }, [allTasks])
+    const returnShortDate = (dateString: string) => {
+        if (dateString === 'Today') {
+            return 'Today'
+        } else if(dateString === 'Tomorrow'){
+            return 'Tomorrow'
+        }
+        const parts = dateString.split(' ')
+        const month = parts[0].slice(0, 4)
+        const day = parts[1].slice(0, 2)
+        return `${month}, ${day}`
+    }
 
     const addTaskHandler = () => {
         console.log(taskToAdd)
@@ -48,7 +55,7 @@ const CreateTask = () => {
             setTitleError(true)
             return
         }
-        const newTask = { ...taskToAdd, id: uuid() };
+        const newTask = { ...taskToAdd, id: uuid(), taskDate: formattedTaskToAddDate };
         console.log(newTask)
         addTask(newTask);
 
@@ -59,7 +66,7 @@ const CreateTask = () => {
             completed: false,
             startTime: '12:00 am', // Reset to default values
             endTime: '1:00 am',
-            taskDate: new Date()
+            taskDate: 'Today'
         });
     }
 
@@ -105,7 +112,7 @@ const CreateTask = () => {
             {titleError && <p className={createTaskStyles['error-text']}>This field cannot be empty</p>}
             <div className={createTaskStyles['date-area']}>
                 <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`} onClick={() => changeMode('calendar')}>
-                    <FiCalendar color='#344054' /> Today
+                    <FiCalendar color='#344054' /> {returnShortDate(formattedTaskToAddDate)}
                 </div>
                 <div className={createTaskStyles['time-area']}>
                     <TimeInput onTimeChange={handleStartTimeChange} />

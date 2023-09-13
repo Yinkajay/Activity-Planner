@@ -48,6 +48,7 @@ textarea:focus {
 
 .date-box {
     /* background-color: red; */
+    font-size: 13px;
     width: 88px;
     height: 35px;
     margin: 0 2px;

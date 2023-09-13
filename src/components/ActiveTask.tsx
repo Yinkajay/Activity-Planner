@@ -14,7 +14,7 @@ interface Task {
     completed: boolean;
     startTime: string; // Date properties
     endTime: string;
-    taskDate: Date;
+    taskDate: string;
 }
 
 // console.log(uuid())
@@ -27,7 +27,7 @@ const ActiveTask = () => {
         completed: false,
         startTime: '12:00 am', // Replace with a valid date string
         endTime: '1:00 am',
-        taskDate: new Date()
+        taskDate: string
     })
 
 
@@ -39,16 +39,12 @@ const ActiveTask = () => {
         changeMode('editTask')
     }
 
-    // const handleTimeChange = (newTime: string) => {
-    //     setSelectedTime(newTime);
-    // };
-
     let formattedDate
 
     if (Object.keys(activeTask).length === 0) {
         formattedDate = ''
     } else {
-        formattedDate = formatDate(activeTask?.taskDate)
+        formattedDate = activeTask?.taskDate
     }
 
 

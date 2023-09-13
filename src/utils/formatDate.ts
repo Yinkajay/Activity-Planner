@@ -37,7 +37,7 @@ export const formatCalendarDate = (date: { year: number; month: number; day: num
       currentDate.getMonth() === inputDate.getMonth() &&
       currentDate.getDate() === inputDate.getDate()
     ) {
-      return 'Todayyyyyy';
+      return 'Today';
     }
   
     const tomorrowDate = new Date(currentDate);

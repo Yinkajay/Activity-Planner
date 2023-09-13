@@ -10,6 +10,7 @@ import ActiveTask from './ActiveTask';
 import EditTask from './EditTask';
 import DaysList from './DaysList';
 import Modal from './UI/Modal';
+import { formatCalendarDate } from '../utils/formatDate';
 
 interface Task {
     id: number;
@@ -17,7 +18,7 @@ interface Task {
     completed: boolean;
     startTime: string;
     endTime: string;
-    taskDate: Date
+    taskDate: string
 }
 
 
@@ -35,7 +36,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
     const [showModal, setShowModal] = useState(false)
 
-    const { allTasks, changeMode, setAllTasks, activeTask, highlightTask, actionMode } = useContext(TaskContext)
+    const { allTasks, changeMode, setAllTasks, activeTask, highlightTask, actionMode, formattedTaskToAddDate, setFormattedTaskToAddDate } = useContext(TaskContext)
 
 
 
@@ -69,6 +70,13 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
         setShowModal(true)
     }
 
+    useEffect(() => {
+        setFormattedTaskToAddDate(formatCalendarDate(calendarDate))
+        console.log(formatCalendarDate(calendarDate))
+    }, [calendarDate])
+
+
+
     return (
         <div className={taskStyles['tasks-area']}>
             <div className={taskStyles['tasks-ctn']}>
@@ -89,7 +97,7 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                             </div>
                         </div>
                         <div className={taskStyles['task-date']}>
-                            Today
+                            <p>{task.taskDate}</p>
                         </div>
                     </div>
                 ))}

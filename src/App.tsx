@@ -19,18 +19,11 @@ interface Task {
   completed: boolean;
   startTime: string; // Date properties
   endTime: string;
-  taskDdate: Date
+  taskDate: string
 }
 
 function App() {
   // const [startDate, setStartDate] = useState(new Date());
-  const [day, setDay] = useState<DayValue>(null);
-  const [dayRange, setDayRange] = useState<DayRange>({
-    from: null,
-    to: null
-  });
-  const [days, setDays] = useState<Day[]>([]);
-  const [tasks, setTasks] = useState([])
 
   const { addTask, allTasks, setAllTasks } = useContext(TaskContext)
 
@@ -49,7 +42,7 @@ function App() {
             completed: false,
             startTime, // Add the start date
             endTime,   // Add the end date
-            taskDate: new Date()
+            taskDate: 'Today'
           };
         });
         console.log(modifiedTasks)

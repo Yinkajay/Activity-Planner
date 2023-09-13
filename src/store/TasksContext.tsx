@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { extractDateInfo } from '../utils/getDateInfo';
 import { formatCalendarDate } from '../utils/formatDate';
 
@@ -10,7 +10,7 @@ interface Task {
     completed: boolean;
     startTime: string; // Date properties
     endTime: string;
-    taskDate: Date
+    taskDate: string
 }
 
 
@@ -20,7 +20,7 @@ const initialTasks: Task[] = [{
     completed: false,
     startTime: '2023-09-09', // Replace with a valid date string
     endTime: '2023-09-10',   // Replace with a valid date string
-    taskDate: new Date()
+    taskDate: 'Today'
 }]
 
 
@@ -35,7 +35,8 @@ export const TaskContext = createContext<{
     actionMode: string,
     changeMode: (mode: string) => void,
     editTask: (task: Task) => void,
-    calendarDate: string
+    formattedTaskToAddDate: string,
+    setFormattedTaskToAddDate: React.Dispatch<React.SetStateAction<string>>
 }>({
     allTasks: [],
     addTask: () => { },
@@ -47,7 +48,8 @@ export const TaskContext = createContext<{
     actionMode: '',
     changeMode: () => { },
     editTask: () => { },
-    calendarDate: ''
+    formattedTaskToAddDate: '',
+    setFormattedTaskToAddDate: () => { }
 });
 
 
@@ -60,7 +62,7 @@ export const TaskContextProvider = ({ children }) => {
     // const [activeTask, setActiveTask] = useState({})
     const [activeTask, setActiveTask] = useState<Task>({} as Task)
 
-    const [calendarDate, setCalendarDate] = useState(formatCalendarDate(taskToAddDate))
+    const [formattedTaskToAddDate, setFormattedTaskToAddDate] = useState<string>(formatCalendarDate(taskToAddDate))
 
     const [actionMode, setActionMode] = useState<string>('calendar')
 
@@ -69,6 +71,7 @@ export const TaskContextProvider = ({ children }) => {
         setAllTasks((prevTasks) => [task, ...prevTasks])
         console.log('working')
     };
+
 
     const changeTaskDate: (date: TaskDate) => void = (date) => {
         setTaskToAddDate(date)
@@ -112,7 +115,8 @@ export const TaskContextProvider = ({ children }) => {
             actionMode,
             changeMode,
             editTask,
-            calendarDate
+            formattedTaskToAddDate,
+            setFormattedTaskToAddDate
         }}>
             {children}
         </TaskContext.Provider>
