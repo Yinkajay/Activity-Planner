@@ -25,8 +25,8 @@ const CreateTask = () => {
         id: 22,
         title: '',
         completed: false,
-        startTime: '12:00 am', // Replace with a valid date string
-        endTime: '1:00 am',
+        startTime: '00:00 am', // Replace with a valid date string
+        endTime: '00:00 am',
         taskDate: 'Today'
     })
 
