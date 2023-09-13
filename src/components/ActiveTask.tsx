@@ -21,16 +21,6 @@ interface Task {
 
 const ActiveTask = () => {
 
-    const [taskToAdd, setTaskToAdd] = useState<Task>({
-        id: 22,
-        title: '',
-        completed: false,
-        startTime: '12:00 am', // Replace with a valid date string
-        endTime: '1:00 am',
-        taskDate: string
-    })
-
-
 
     const { allTasks, setAllTasks, highlightTask, addTask, activeTask, changeMode } = useContext(TaskContext)
 
