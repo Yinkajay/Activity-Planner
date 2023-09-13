@@ -17,6 +17,10 @@
     /* background-color: lightblue; */
 }
 
+.tasks-ctn h2 {
+    margin: 2rem 0;
+}
+
 .current-month {
     color: #101828;
 }
@@ -105,8 +109,8 @@
     color: #475467;
 }
 
-.page-btn svg{
-margin: 0 5px;
+.page-btn svg {
+    margin: 0 5px;
 }
 
 .calendar-card {
@@ -188,7 +192,7 @@ margin: 0 5px;
         display: none;
     }
 
-    .modal-input-ctn{
+    .modal-input-ctn {
         display: block;
     }
 }
