@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { extractDateInfo } from '../utils/getDateInfo';
+import { formatCalendarDate } from '../utils/formatDate';
 
 // ReactNode
 
@@ -33,7 +34,8 @@ export const TaskContext = createContext<{
     highlightTask: (task: Task) => void;
     actionMode: string,
     changeMode: (mode: string) => void,
-    editTask: (task: Task) => void
+    editTask: (task: Task) => void,
+    calendarDate: string
 }>({
     allTasks: [],
     addTask: () => { },
@@ -44,7 +46,8 @@ export const TaskContext = createContext<{
     highlightTask: () => { },
     actionMode: '',
     changeMode: () => { },
-    editTask: () => { }
+    editTask: () => { },
+    calendarDate: ''
 });
 
 
@@ -57,9 +60,11 @@ export const TaskContextProvider = ({ children }) => {
     // const [activeTask, setActiveTask] = useState({})
     const [activeTask, setActiveTask] = useState<Task>({} as Task)
 
+    const [calendarDate, setCalendarDate] = useState(formatCalendarDate(taskToAddDate))
+
     const [actionMode, setActionMode] = useState<string>('calendar')
 
-    
+
     const addTask: (task: Task) => void = (task: Task) => {
         setAllTasks((prevTasks) => [task, ...prevTasks])
         console.log('working')
@@ -107,6 +112,7 @@ export const TaskContextProvider = ({ children }) => {
             actionMode,
             changeMode,
             editTask,
+            calendarDate
         }}>
             {children}
         </TaskContext.Provider>

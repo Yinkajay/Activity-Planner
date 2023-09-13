@@ -104,16 +104,10 @@ const CreateTask = () => {
             <textarea rows={10} cols={40} value={taskToAdd.title} onChange={handleTitleChange} />
             {titleError && <p className={createTaskStyles['error-text']}>This field cannot be empty</p>}
             <div className={createTaskStyles['date-area']}>
-                <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`}>
+                <div className={`${createTaskStyles['date-box']} ${createTaskStyles['day-box']}`} onClick={() => changeMode('calendar')}>
                     <FiCalendar color='#344054' /> Today
                 </div>
                 <div className={createTaskStyles['time-area']}>
-                    {/* <div className={`${createTaskStyles['date-box']}`}>
-                        <AiOutlineClockCircle color='#344054' /> 10 AM
-                    </div> */}
-                    {/* <div className={`${createTaskStyles['date-box']}`}>
-                        <AiOutlineClockCircle color='#344054' /> 11AM
-                    </div> */}
                     <TimeInput onTimeChange={handleStartTimeChange} />
                     <TimeInput onTimeChange={handleEndTimeChange} />
                 </div>

@@ -4,12 +4,10 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/Navbar'
 import TopBar from './components/TopBar'
-// import DatePicker from "react-datepicker";
 import DatePicker, { DayValue, DayRange, Day, Calendar } from 'react-modern-calendar-datepicker'
 
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 
-import "react-datepicker/dist/react-datepicker.css";
 import Tasks from './components/Tasks'
 import { TaskContext } from './store/TasksContext'
 import { generateRandomTime } from './utils/getRandomTimeGenerator'

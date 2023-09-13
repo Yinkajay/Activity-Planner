@@ -35,13 +35,9 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
     const [showModal, setShowModal] = useState(false)
 
-    const { allTasks, changeMode, setAllTasks, taskToAddDate, activeTask, highlightTask, actionMode } = useContext(TaskContext)
+    const { allTasks, changeMode, setAllTasks, activeTask, highlightTask, actionMode } = useContext(TaskContext)
 
 
-    // useEffect(() => {
-    //     console.log(calendarDate)
-    //     console.log(activeTask)
-    // }, [calendarDate, activeTask,])
 
     // console.log(allTasks)
     const changeDateHandler = (newDate) => {
