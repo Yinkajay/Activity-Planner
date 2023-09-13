@@ -64,8 +64,8 @@ const CreateTask = () => {
             id: 0, // Reset to an empty string
             title: '',
             completed: false,
-            startTime: '12:00 am', // Reset to default values
-            endTime: '1:00 am',
+            startTime: '00:00 am', // Reset to default values
+            endTime: '00:00 am',
             taskDate: 'Today'
         });
     }
