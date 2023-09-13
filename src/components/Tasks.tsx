@@ -82,7 +82,6 @@ const Tasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 <h2>
                     My Tasks
                 </h2>
-                <h3>{calendarDate.year}-{calendarDate.month}-{calendarDate.day}</h3>
                 {tasks.length === 0 && <h1 className={taskStyles['empty-tasks-heading']}>Nothing to show here!</h1>}
                 {tasks?.slice((page - 1) * tasksPerPage, page * tasksPerPage).map(task => (
                     <div className={`${taskStyles['task']} ${activeTask.id == task.id ? taskStyles['active-task'] : ''}`} key={task.id} onClick={() => handleTaskClick(task)}>
