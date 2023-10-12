@@ -1,4 +1,4 @@
-#Todo List with Calendar View
+# Todo List with Calendar View
 This is a TypeScript and React Context to-do list application with a calendar view. It allows users to create, edit, and delete to-do items, and to view their to-do items in a calendar view.
 
 The application uses React Context to manage state. This means that the state of the application is available to any component that needs it, without having to pass it down through props. This makes the application easier to maintain and update.
